@@ -1,0 +1,51 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.0'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	// 배포 성공했는지 확인하려고 넣은거임
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// Apache Commons
+	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+	implementation group: 'org.apache.commons', name: 'commons-text', version: '1.8'
+	implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+	// JWT Token
+	implementation group: 'com.auth0', name: 'java-jwt', version: '3.4.0'
+
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation files('/path/to/my-library.jar')
+	implementation files('/path/to/my-library.jar')
+
+	// sshj 추가
+	implementation 'com.hierynomus:sshj:0.29.0'
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
