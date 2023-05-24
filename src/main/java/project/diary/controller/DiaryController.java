@@ -78,4 +78,13 @@ public class DiaryController {
         return ResponseEntity.ok().build();
     }
 
+    // 이미 있는 데이터 조회
+    @GetMapping("/calendar/{diaryId}")
+    public ResponseEntity<DiaryResponseDTO> diaryPage(@PathVariable int diaryId) throws Exception {
+        DiaryService diaryService = new DiaryService(diaryRepository);
+        DiaryResponseDTO diary = diaryService.diaryPage(diaryId);
+        return ResponseEntity.ok(diary);
+    }
+
+
 }

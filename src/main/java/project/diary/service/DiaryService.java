@@ -7,7 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import project.diary.domain.diary.Diary;
 import project.diary.domain.diary.DiaryRepository;
 import project.diary.dto.diary.DiaryRequestDTO;
+import project.diary.dto.diary.DiaryResponseDTO;
 import project.diary.dto.diary.DiaryUpdateRequestDTO;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -42,6 +45,14 @@ public class DiaryService {
     // 삭제
     public void deleteDiary(int diaryId) {
         diaryRepository.deleteById(Long.valueOf(diaryId));
+    }
+
+    // 이미 있는 데이터 조회
+    @Transactional(readOnly = true)
+    public  DiaryResponseDTO diaryPage(int diaryId) throws Exception {
+        Diary diary = diaryRepository.findByDiaryId(diaryId)
+                .orElseThrow(() -> new Exception("존재하지 않는 일기 정보 입니다."));
+        return new DiaryResponseDTO(diary);
     }
 }
 
