@@ -48,7 +48,7 @@ public class JwtFactory {
     }
 
 
-    public String generateAccessToken(String user_id, String user_nickname, String user_password) {
+    public String generateAccessToken(int user_id, String user_nickname, String user_password) {
 
         return JWT.create()
                 .withIssuer(DOMAIN_URL)
@@ -78,9 +78,9 @@ public class JwtFactory {
 
 
         return UserDecodeJWTDTO.builder()
-                .user_id(user_id)
-                .user_nickname(user_nickname)
-                .user_password(user_password)
+                .userId(Integer.parseInt(user_id))
+                .userNickname(user_nickname)
+                .userPassword(user_password)
                 .build();
     }
 

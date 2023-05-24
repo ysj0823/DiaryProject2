@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DiaryUpdateRequestDTO {
-    private String diary_weather;
-    private String diary_emotion;
-    private String diary_title;
-    private String diary_content;
+    private String diaryWeather;
+    private String diaryEmotion;
+    private String diaryTitle;
+    private String diaryContent;
 }

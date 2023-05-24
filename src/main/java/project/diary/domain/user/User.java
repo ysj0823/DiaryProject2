@@ -13,22 +13,23 @@ import lombok.*;
 public class User {
 
     @Id
-    private String user_id;
-    private String user_nickname;
-    private String user_password;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userId;
+    private String userNickname;
+    private String userPassword;
 
 
     @Builder
-    public User(String user_id, String user_nickname, String user_password) {
-        this.user_id = user_id;
-        this.user_nickname = user_nickname;
-        this.user_password = user_password;
+    public User(int userId, String userNickname, String userPassword) {
+        this.userId = userId;
+        this.userNickname = userNickname;
+        this.userPassword = userPassword;
 
     }
 
     public void userUpdate(UserUpdateRequestDto userUpdateRequestDto) {
-        this.user_nickname = userUpdateRequestDto.getUser_nickname();
-        this.user_password = userUpdateRequestDto.getUser_password();
+        this.userNickname = userUpdateRequestDto.getUserNickname();
+        this.userPassword = userUpdateRequestDto.getUserPassword();
     }
 
 }

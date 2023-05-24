@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDecodeJWTDTO {
 
-    private String user_id;
-    private String user_nickname;
-    private String user_password;
+    private int userId;
+    private String userNickname;
+    private String userPassword;
 
 }

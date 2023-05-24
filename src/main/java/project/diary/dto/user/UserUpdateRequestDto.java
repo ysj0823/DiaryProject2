@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 public class UserUpdateRequestDto {
-    private String user_nickname;
-    private String user_password;
+    private String userNickname;
+    private String userPassword;
 
 }

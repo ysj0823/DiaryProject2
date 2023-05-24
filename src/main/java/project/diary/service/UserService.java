@@ -2,6 +2,7 @@ package project.diary.service;
 
 import project.diary.domain.user.User;
 import project.diary.domain.user.UserRepository;
+import project.diary.dto.diary.DiaryUpdateRequestDTO;
 import project.diary.dto.user.LoginRequestDTO;
 import project.diary.dto.user.UserRequestDto;
 
@@ -27,16 +28,16 @@ public class UserService {
 
     // 회원가입
     public User join(UserRequestDto userRequestDto) {
-        Boolean existed = userRepository.existsByUser_id(userRequestDto.getUser_id());
+        Boolean existed = userRepository.existsByUserNickname(userRequestDto.getUserNickname());
 
         if(existed) {
             return null;
         }
 
         return userRepository.save(User.builder()
-                .user_id(userRequestDto.getUser_id())
-                .user_nickname(userRequestDto.getUser_nickname())
-                .user_password(userRequestDto.getUser_password())
+                .userId(userRequestDto.getUserId())
+                .userNickname(userRequestDto.getUserNickname())
+                .userPassword(userRequestDto.getUserPassword())
                 .build());
 
     }
@@ -45,19 +46,19 @@ public class UserService {
     public String login(LoginRequestDTO userRequestDto) throws Exception {
 
         // Get User Info
-        User entity = userRepository.findByUser_id(userRequestDto.getUser_id())
+        User entity = userRepository.findByUserNickname(userRequestDto.getUserNickname())
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
 
 
         // Check User password
-        if(!entity.getUser_password().equals(userRequestDto.getUser_password())){
+        if(!entity.getUserPassword().equals(userRequestDto.getUserPassword())){
             throw new Exception("잘못된 비밀번호 입니다 확인후 로그인해주세요.");
         }
 
         return jwtFactory.generateAccessToken(
-                entity.getUser_id(),
-                entity.getUser_nickname(),
-                entity.getUser_password()
+                entity.getUserId(),
+                entity.getUserNickname(),
+                entity.getUserPassword()
         );
 
     }
@@ -69,9 +70,9 @@ public class UserService {
 
     // 사용자 정보 수정
     @Transactional
-    public void userUpdate(String user_id, UserUpdateRequestDto userUpdateRequestDto) throws Exception {
+    public void userUpdate(String userNickname, UserUpdateRequestDto userUpdateRequestDto) throws Exception {
 
-        User user = userRepository.findByUser_id(user_id)
+        User user = userRepository.findByUserNickname(userNickname)
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
 
         user.userUpdate(userUpdateRequestDto);
@@ -86,14 +87,14 @@ public class UserService {
     }
 
     // 회원탈퇴
-    public void deleteUser(String user_id) {
-        userRepository.deleteById(Long.valueOf(user_id));
+    public void deleteUser(int userId) {
+        userRepository.deleteById((long) userId);
     }
 
     // 마이페이지
     @Transactional(readOnly = true)
-    public UserResponseDto myPage(String user_id) throws Exception {
-        User user = userRepository.findByUser_id(user_id)
+    public UserResponseDto myPage(String userNickname) throws Exception {
+        User user = userRepository.findByUserNickname(userNickname)
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
         return new UserResponseDto(user);
     }

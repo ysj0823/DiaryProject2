@@ -52,33 +52,33 @@ public class UserController {
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) throws Exception {
-        // 유저아이디와 비밀번호가 없을 경우
-        if (StringUtils.isEmpty(dto.getUser_id()) || StringUtils.isEmpty(dto.getUser_password())) {
+        // 닉네임 비밀번호가 없을 경우
+        if (StringUtils.isEmpty(dto.getUserNickname()) || StringUtils.isEmpty(dto.getUserPassword())) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         // 사용자 정보 가져오기
-        User entity = userRepository.findByUser_id(dto.getUser_id())
+        User entity = userRepository.findByUserNickname(dto.getUserNickname())
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
 
         // 비밀번호 일치 확인
-        if (!entity.getUser_password().equals(dto.getUser_password())) {
+        if (!entity.getUserPassword().equals(dto.getUserPassword())) {
             throw new Exception("잘못된 비밀번호 입니다 확인후 로그인해주세요.");
         }
 
         // 토큰 생성
         String jwtToken = jwtFactory.generateAccessToken(
-                entity.getUser_id(),
-                entity.getUser_nickname(),
-                entity.getUser_password()
+                entity.getUserId(),
+                entity.getUserNickname(),
+                entity.getUserPassword()
         );
 
         // 응답 DTO 생성
         LoginResponseDTO responseDTO = LoginResponseDTO.builder()
                 .jwtToken(jwtToken)
-                .user_id(entity.getUser_id())
-                .user_nickname(entity.getUser_nickname())
-                .user_password(entity.getUser_password())
+                .userId(entity.getUserId())
+                .userNickname(entity.getUserNickname())
+                .userPassword(entity.getUserPassword())
                 .build();
 
         return ResponseEntity.ok(responseDTO);
@@ -92,8 +92,8 @@ public class UserController {
 
 
     // 회원정보 수정
-    @PatchMapping("/{user_id}")
-    public void userUpdate(@PathVariable String user_id, @RequestBody UserUpdateRequestDto userUpdateRequestDto, @RequestHeader("Authorization") String token) throws Exception {
+    @PatchMapping("/profile/{userNickname}")
+    public void userUpdate(@PathVariable String userNickname, @RequestBody UserUpdateRequestDto userUpdateRequestDto, @RequestHeader("Authorization") String token) throws Exception {
         // 토큰의 유효성 검사
         UserDecodeJWTDTO decodedToken = jwtFactory.decodeJwt(token);
         if (decodedToken == null) {
@@ -101,7 +101,7 @@ public class UserController {
         }
 
         // 토큰에서 추출한 정보를 사용하여 사용자 정보 업데이트
-        userService.userUpdate(user_id, userUpdateRequestDto);
+        userService.userUpdate(userNickname, userUpdateRequestDto);
     }
 
 
@@ -121,16 +121,16 @@ public class UserController {
     }
 
     // 회원탈퇴
-    @DeleteMapping("/{user_id}")
-    public ResponseEntity<?> deleteUser(@PathVariable String user_id) {
-        userService.deleteUser(user_id);
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable int userId) {
+        userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }
 
     // 마이페이지
-    @GetMapping("/mypage/{user_id}")
-    public ResponseEntity<UserResponseDto> myPage(@PathVariable String user_id) throws Exception {
-        UserResponseDto user = userService.myPage(user_id);
+    @GetMapping("/mypage/{userNickname}")
+    public ResponseEntity<UserResponseDto> myPage(@PathVariable String userNickname) throws Exception {
+        UserResponseDto user = userService.myPage(userNickname);
         return ResponseEntity.ok(user);
     }
 

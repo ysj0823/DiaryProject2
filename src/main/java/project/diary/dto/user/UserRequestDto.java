@@ -10,14 +10,14 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserRequestDto {
 
-    private String user_id;
-    private String user_nickname;
-    private String user_password;
+    private int userId;
+    private String userNickname;
+    private String userPassword;
 
     public UserRequestDto(User entity) {
-        this.user_id = entity.getUser_id();
-        this.user_nickname = entity.getUser_nickname();
-        this.user_password = entity.getUser_password();
+        this.userId = entity.getUserId();
+        this.userNickname = entity.getUserNickname();
+        this.userPassword = entity.getUserPassword();
 
     }
 

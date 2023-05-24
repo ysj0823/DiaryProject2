@@ -1,5 +1,6 @@
 package project.diary.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,15 @@ public class DiaryController {
     // 저장
     @PostMapping("/calendar")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<List<DiaryResponseDTO>> save(@RequestBody DiaryRequestDTO diaryRequestDTO) {
+    public ResponseEntity<List<DiaryResponseDTO>> save(@RequestBody DiaryRequestDTO diaryRequestDTO,
+                                                       HttpServletRequest request) {
+
+        UserDecodeJWTDTO user = (UserDecodeJWTDTO)request.getSession().getAttribute("USER");
+        String userNickname = user.getUserNickname();
+        log.info(userNickname);
+        diaryRequestDTO.setDiaryUser(userNickname);
         ResponseEntity<List<DiaryResponseDTO>> result;
+
 
         Diary diary = diaryService.save(diaryRequestDTO);
 
@@ -51,8 +59,8 @@ public class DiaryController {
     }
 
     // 수정
-    @PutMapping("/calendar")
-    public void diaryUpdate(@PathVariable int diary_id, @RequestBody DiaryUpdateRequestDTO diaryUpdateRequestDTO, @RequestHeader("Authorization") String token) throws Exception {
+    @PatchMapping("/calendar/{diaryId}")
+    public void diaryUpdate(@PathVariable int diaryId, @RequestBody DiaryUpdateRequestDTO diaryUpdateRequestDTO, @RequestHeader("Authorization") String token) throws Exception {
         // 토큰의 유효성 검사
         UserDecodeJWTDTO decodedToken = jwtFactory.decodeJwt(token);
         if (decodedToken == null) {
@@ -60,13 +68,13 @@ public class DiaryController {
         }
 
         // 토큰에서 추출한 정보를 사용하여 내용 수정 업데이트
-        diaryService.diaryUpdate(diary_id, diaryUpdateRequestDTO);
+        diaryService.diaryUpdate(diaryId, diaryUpdateRequestDTO);
     }
 
     // 삭제
-    @DeleteMapping("/calendar")
-    public ResponseEntity<?> deleteDiary(@PathVariable int diary_id) {
-        diaryService.deleteDiary(diary_id);
+    @DeleteMapping("/calendar/{diaryId}")
+    public ResponseEntity<?> deleteDiary(@PathVariable int diaryId) {
+        diaryService.deleteDiary(diaryId);
         return ResponseEntity.ok().build();
     }
 
