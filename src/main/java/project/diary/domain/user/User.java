@@ -17,13 +17,15 @@ public class User {
     private int userId;
     private String userNickname;
     private String userPassword;
+    private String userLoginId;
 
 
     @Builder
-    public User(int userId, String userNickname, String userPassword) {
+    public User(int userId, String userNickname, String userPassword, String userLoginId) {
         this.userId = userId;
         this.userNickname = userNickname;
         this.userPassword = userPassword;
+        this.userLoginId = userLoginId;
 
     }
 

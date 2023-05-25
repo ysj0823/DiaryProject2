@@ -28,7 +28,7 @@ public class UserService {
 
     // 회원가입
     public User join(UserRequestDto userRequestDto) {
-        Boolean existed = userRepository.existsByUserNickname(userRequestDto.getUserNickname());
+        Boolean existed = userRepository.existsByUserLoginId(userRequestDto.getUserLoginId());
 
         if(existed) {
             return null;
@@ -38,6 +38,7 @@ public class UserService {
                 .userId(userRequestDto.getUserId())
                 .userNickname(userRequestDto.getUserNickname())
                 .userPassword(userRequestDto.getUserPassword())
+                .userLoginId(userRequestDto.getUserLoginId())
                 .build());
 
     }
@@ -46,7 +47,7 @@ public class UserService {
     public String login(LoginRequestDTO userRequestDto) throws Exception {
 
         // Get User Info
-        User entity = userRepository.findByUserNickname(userRequestDto.getUserNickname())
+        User entity = userRepository.findByUserLoginId(userRequestDto.getUserLoginId())
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
 
 
@@ -58,21 +59,22 @@ public class UserService {
         return jwtFactory.generateAccessToken(
                 entity.getUserId(),
                 entity.getUserNickname(),
-                entity.getUserPassword()
+                entity.getUserPassword(),
+                entity.getUserLoginId()
         );
 
     }
 
-    private void authenticate(String email, String password) {
-
-    }
+//    private void authenticate(String email, String password) {
+//
+//    }
 
 
     // 사용자 정보 수정
     @Transactional
-    public void userUpdate(String userNickname, UserUpdateRequestDto userUpdateRequestDto) throws Exception {
+    public void userUpdate(String userLoginId, UserUpdateRequestDto userUpdateRequestDto) throws Exception {
 
-        User user = userRepository.findByUserNickname(userNickname)
+        User user = userRepository.findByUserLoginId(userLoginId)
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
 
         user.userUpdate(userUpdateRequestDto);
@@ -93,8 +95,8 @@ public class UserService {
 
     // 마이페이지
     @Transactional(readOnly = true)
-    public UserResponseDto myPage(String userNickname) throws Exception {
-        User user = userRepository.findByUserNickname(userNickname)
+    public UserResponseDto myPage(String userLoginId) throws Exception {
+        User user = userRepository.findByUserLoginId(userLoginId)
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
         return new UserResponseDto(user);
     }

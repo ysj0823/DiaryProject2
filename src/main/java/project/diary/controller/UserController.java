@@ -52,13 +52,13 @@ public class UserController {
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) throws Exception {
-        // 닉네임 비밀번호가 없을 경우
-        if (StringUtils.isEmpty(dto.getUserNickname()) || StringUtils.isEmpty(dto.getUserPassword())) {
+        // 아이디 비밀번호가 없을 경우
+        if (StringUtils.isEmpty(dto.getUserLoginId()) || StringUtils.isEmpty(dto.getUserPassword())) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         // 사용자 정보 가져오기
-        User entity = userRepository.findByUserNickname(dto.getUserNickname())
+        User entity = userRepository.findByUserLoginId(dto.getUserLoginId())
                 .orElseThrow(() -> new Exception("존재하지 않는 유저 정보 입니다."));
 
         // 비밀번호 일치 확인
@@ -70,7 +70,8 @@ public class UserController {
         String jwtToken = jwtFactory.generateAccessToken(
                 entity.getUserId(),
                 entity.getUserNickname(),
-                entity.getUserPassword()
+                entity.getUserPassword(),
+                entity.getUserLoginId()
         );
 
         // 응답 DTO 생성
@@ -79,6 +80,7 @@ public class UserController {
                 .userId(entity.getUserId())
                 .userNickname(entity.getUserNickname())
                 .userPassword(entity.getUserPassword())
+                .userLoginId(entity.getUserLoginId())
                 .build();
 
         return ResponseEntity.ok(responseDTO);
@@ -92,8 +94,8 @@ public class UserController {
 
 
     // 회원정보 수정
-    @PatchMapping("/profile/{userNickname}")
-    public void userUpdate(@PathVariable String userNickname, @RequestBody UserUpdateRequestDto userUpdateRequestDto, @RequestHeader("Authorization") String token) throws Exception {
+    @PatchMapping("/profile/{userLoginId}")
+    public void userUpdate(@PathVariable String userLoginId, @RequestBody UserUpdateRequestDto userUpdateRequestDto, @RequestHeader("Authorization") String token) throws Exception {
         // 토큰의 유효성 검사
         UserDecodeJWTDTO decodedToken = jwtFactory.decodeJwt(token);
         if (decodedToken == null) {
@@ -101,7 +103,7 @@ public class UserController {
         }
 
         // 토큰에서 추출한 정보를 사용하여 사용자 정보 업데이트
-        userService.userUpdate(userNickname, userUpdateRequestDto);
+        userService.userUpdate(userLoginId, userUpdateRequestDto);
     }
 
 
@@ -128,9 +130,9 @@ public class UserController {
     }
 
     // 마이페이지
-    @GetMapping("/mypage/{userNickname}")
-    public ResponseEntity<UserResponseDto> myPage(@PathVariable String userNickname) throws Exception {
-        UserResponseDto user = userService.myPage(userNickname);
+    @GetMapping("/mypage/{userLoginId}")
+    public ResponseEntity<UserResponseDto> myPage(@PathVariable String userLoginId) throws Exception {
+        UserResponseDto user = userService.myPage(userLoginId);
         return ResponseEntity.ok(user);
     }
 

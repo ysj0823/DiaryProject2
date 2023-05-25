@@ -13,11 +13,13 @@ public class UserRequestDto {
     private int userId;
     private String userNickname;
     private String userPassword;
+    private String userLoginId;
 
     public UserRequestDto(User entity) {
         this.userId = entity.getUserId();
         this.userNickname = entity.getUserNickname();
         this.userPassword = entity.getUserPassword();
+        this.userLoginId = entity.getUserLoginId();
 
     }
 

@@ -43,12 +43,14 @@ public class JwtFactory {
 
     private static String USER_ID = "USER_ID";
 
+    private static String USER_LOGIN_ID = "USER_LOGIN_ID";
+
     private Algorithm generateSign() {
         return Algorithm.HMAC256("jwtProperty.getKey()");
     }
 
 
-    public String generateAccessToken(int user_id, String user_nickname, String user_password) {
+    public String generateAccessToken(int user_id, String user_nickname, String user_password, String userLoginId) {
 
         return JWT.create()
                 .withIssuer(DOMAIN_URL)
@@ -57,6 +59,7 @@ public class JwtFactory {
                 .withClaim(USER_ID, String.valueOf(user_id))
                 .withClaim(USER_NICKNAME, user_nickname)
                 .withClaim(USER_PASSWORD, user_password)
+                .withClaim(USER_LOGIN_ID, userLoginId)
                 .sign(generateSign());
     }
 
