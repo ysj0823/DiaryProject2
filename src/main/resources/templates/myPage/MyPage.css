@@ -1,0 +1,76 @@
+/* 폰트 */
+@font-face {
+  font-family: 'GangwonEdu_OTFBoldA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 폰트 적용 */
+body {
+  font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+}
+
+/* 양 옆 여백 */
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+/* 상단바 (마이페이지) */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  height: 60px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  padding: 0 20px;
+}
+
+/* 상단바 글씨 */
+.header__title {
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+/* 뒤로가기 버튼 */
+.header_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* 회원 정보 출력하는 박스 */
+.info-box {
+  border: 1px solid rgb(255, 214, 179);
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 410px;
+  padding: 20px 40px; 
+  border-radius: 5px; 
+}
+
+/* 메인 버튼 4개 */
+.main {
+  padding: 80px 0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 버튼 */
+.button {
+  font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+  background-color: rgb(255, 214, 179);
+  border: 1px solid #ccc;
+  width: 490px;
+  padding: 20px 40px;  
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}

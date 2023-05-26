@@ -1,0 +1,103 @@
+/* 폰트 */
+@font-face {
+  font-family: 'GangwonEdu_OTFBoldA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 폰트 적용 */
+body {
+  font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+}
+
+/* 양 옆 여백 */
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+input[type="text"],
+input[type="date"],
+
+/* 날짜, 날씨 입력칸 */
+textarea {
+  font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+  display: block;
+  width: 30%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+/* 일기 입력칸 */
+.dairy_text {
+  display: block;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+/* 이모티콘 그룹 */
+.emotions {
+  margin-left: 25px;
+  text-align: center;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+/* 이모티콘 */
+.emotion {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* 이모티콘 이미지 */
+.emotion img {
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  width: 90px;
+  height: 90px;
+}
+
+/* 선택한 이미지 */
+.selected img {
+  border-color: #333;
+}
+
+/* 날짜와 날씨 (같은 높이에 있게 하기 위해 클래스로 묶음) */
+.date_weather {
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.date_weather label {
+  width: 50px;
+  margin-right: 0px; 
+}
+
+/* 버튼 */
+.button {
+  font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+  background-color: rgb(255, 214, 179);
+  border: 1px solid #ccc;
+  width: 100%;
+  padding: 20px 40px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}

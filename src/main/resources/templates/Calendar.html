@@ -1,0 +1,47 @@
+<!-- 
+    -'홍길동'-> 닉네임 뜨도록
+    -달력아래에 감정통계 없을땐 없다고 뜨도록
+    -달력에 감정기록한 내용 뜨도록.. 
+    -어케해.. ㅠㅠ  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="calendar/calender.css" />
+    <title>Calender</title>
+</head>
+<body>
+    <div class="nav">
+        <!-- <div class="wrapper"> -->
+        <img src="images/home.png" class="home" onclick="homemove(event)">
+        <div class="logout" onclick="logout(event)">로그아웃</div>
+        <!-- </div>     -->
+        <div class="nickname">'홍길동'님의 감정록</div>
+    </div>
+    <div class='main'>
+        <div class="header">
+          <div class="btn prevDay"></div>
+          <h2 class='dateTitle'></h2>
+          <div class="btn nextDay"></div>
+          <h1 class = 'emotionavg' onclick = "avgmove(event)">월별 감정 통계</h1>
+        </div>
+        <div class="cal">
+            <div class="grid dateHead">
+            <div>일</div>
+            <div>월</div>
+            <div>화</div>
+            <div>수</div>
+            <div>목</div>
+            <div>금</div>
+            <div>토</div>
+            </div>
+        
+            <div class="grid dateBoard"></div>
+        </div>
+    </div>
+    <div class="todaybox">4월3일의 감정기록이 없습니다.</div>
+      <script type="text/javascript" src="calender.js"></script> 
+</body>
+</html>

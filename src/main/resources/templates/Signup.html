@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>감정록 회원가입</title>
+    <style>
+        h1{
+    text-align: center;
+    color: rgb(33, 30, 30);
+    font-family: inherit;
+    font-size: 3rem;
+}
+
+/*입력창*/
+input{
+    width:94.5%;
+    padding: 10px 10px;
+    font-family: inherit;
+    font-size: 25px;
+    border-radius: 10px 10px 10px 10px;
+    border-color:rgb(255, 214, 179);
+}
+
+input::placeholder{
+    font-size: large;
+}
+
+input:focus {
+    outline: none;
+}
+
+/*로그인, 회원가입 버튼*/
+.main-button{
+    width: 100%;
+    padding: 10px 10px;
+    font-family: inherit;
+    font-size: 20px;
+    background-color: rgb(255, 214, 179);
+    cursor:pointer;
+    border-radius: 10px 10px 10px 10px;
+    border-color: rgb(255, 214, 179);
+}
+.main-button:hover{
+    background-color:#fcb56d
+}
+
+.Button-all{
+    padding-top: 5px;
+}
+
+.box{
+    width: 400px;
+    margin:auto;
+}
+
+body{
+    padding: 15%;
+    font-family: 'GangwonEdu_OTFBoldA';
+    font-size: 2rem;
+}
+
+
+/*알림 메시지*/
+.hide {
+    display: none;
+  }
+
+.id-success-message{
+    font-size: 20px;
+}
+
+.id-failure-message{
+    font-size: 20px;
+    color: red;
+}
+
+.mismatch-message{
+    font-size: 20px;
+    color: red;
+}
+
+.match-message{
+    font-size: 20px;
+}
+
+.pw-condition{
+    font-size: 20px;
+    color: red;
+}
+
+/*폰트*/
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+    </style>
+
+    <h1>감정록 회원가입</h1>
+</head>
+<body>
+    <div class="box">
+        <input placeholder="닉네임" type="text" id="username"><br>
+        <input placeholder="아이디" type="text" id="id"><br>
+        <div class="id-success-message hide">사용 가능한 아이디</div>
+        <div class="id-failure-message hide">아이디 조건: 영문자로 시작하는 영문자 또는 숫자 6-20</div>
+        <input placeholder="패스워드" type="password" id="pw"><br>
+        <input placeholder="패스워드 확인" type="password" id="re-pw"><br>
+        <div class="mismatch-message hide">패스워드가 일치하지 않습니다</div>
+        <div class="match-message hide">패스워드가 일치합니다</div>
+        <div class="pw-condition hide">비밀번호 조건: 8-16 문자, 숫자 조합</div>
+        <div class="Button-all">
+            <button class="main-button" onclick="back()">뒤로가기</button>
+        </div>
+        <div class="Button-all">
+            <button class="main-button" onkeyup onclick="createAccount()">회원가입</button>
+        </div>
+    </div>
+    <script>
+        var userName = document.querySelector("#username");
+var id = document.querySelector("#id");
+var password = document.querySelector("#pw");
+var rePassword = document.querySelector("#re-pw");
+
+const idFailureMessage = document.querySelector(".id-failure-message");
+const idSuccessMessage = document.querySelector(".id-success-message");
+const misMatchMessage = document.querySelector(".mismatch-message");
+const matchMessage = document.querySelector(".match-message");
+const pwCondition = document.querySelector(".pw-condition");
+
+const userIDRegExp = /^[a-z]+[a-z0-9]{5,19}$/; // 아이디 정규식 영문자로 시작하는 영문자 또는 숫자 6-20
+const passwordRegExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/; // 비밀번호 정규식 8-16 문자, 숫자 조합
+// const nicknameRegExp = /^[가-힣|a-z|A-Z|0-9|]{2,10}$/; // 닉네임 정규식 2-10 한글, 숫자 또는 영문
+
+
+/*******아이디 조건*******/
+//id 입력 시 메시지 함수
+id.onkeyup = function () {
+  if (userIDRegExp.test(id.value)) {
+    //성공 메시지 보임/실패 메시지 가림
+    idSuccessMessage.classList.remove("hide");
+    idFailureMessage.classList.add("hide");
+  } else {
+    //성공 메시지 가림/실패 메시지 보임
+    idSuccessMessage.classList.add("hide");
+    idFailureMessage.classList.remove("hide");
+  }
+};
+
+
+/******비밀번호 조건*******/
+//password 조건
+password.onkeyup = function () {
+  if (isMatch(password.value, rePassword.value)) {
+    console.log("일치");
+    misMatchMessage.classList.add("hide");
+    matchMessage.classList.remove("hide");
+  } else {
+    console.log("불일치");
+    misMatchMessage.classList.remove("hide");
+    matchMessage.classList.add("hide");
+  }
+
+  if (passwordRegExp.test(password.value)) {
+    pwCondition.classList.add("hide");
+  } else {
+    pwCondition.classList.remove("hide");
+  }
+};
+
+//repassword 조건
+rePassword.onkeyup = function () {
+  if (isMatch(password.value, rePassword.value)) {
+    misMatchMessage.classList.add("hide");
+    matchMessage.classList.remove("hide");
+  } else {
+    console.log("불일치");
+    misMatchMessage.classList.remove("hide");
+    matchMessage.classList.add("hide");
+  }
+};
+
+// 비밀번호 일치여부 함수
+function isMatch(password1, password2) {
+  if (password1 == password2) {
+    if (password1 != "" || password2 != "")
+      return true;
+    } else {
+      return false;
+    }
+}
+
+// 회원가입 버튼 함수
+function createAccount() {
+    const userData = {
+        userLoginId: id.value,
+        userPassword: password.value,
+        userNickname: userName.value
+    };
+
+    fetch('/api/user/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(response => {
+        if (response.status === 201) {
+            alert('회원가입이 완료되었습니다.');
+            location.href = 'login.html'; // 로그인 페이지로 이동
+        } else if (response.status === 409) {
+            alert('이미 사용 중인 아이디입니다.');
+        } else {
+            alert('회원가입에 실패했습니다.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('회원가입에 실패했습니다.');
+    });
+}
+
+// 뒤로가기
+function back() {
+    history.back();
+}
+
+    </script>
+</body>
+</html>

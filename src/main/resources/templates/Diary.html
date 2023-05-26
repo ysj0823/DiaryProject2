@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="Diary.css"/>
+  <title>일기장 페이지</title>
+</head>
+<body>
+  <div class="container">
+    <div class="date_weather">
+      <input type="date" id="date" name="date">
+      <label for="weather">날씨 :</label>
+      <input type="text" id="weather" name="weather" class="weather_text">
+    </div>
+    <form>
+      <div class="emotions">
+        <div class="emotion">
+          <img src="https://w7.pngwing.com/pngs/8/1006/png-transparent-emoji-smiley-happiness-iphone-emoticon-emoji-smile-emoji-face-sticker-computer-icons-thumbnail.png" alt="행복" class="emotion-img">
+        </div>
+        <div class="emotion">
+          <img src="https://w7.pngwing.com/pngs/133/456/png-transparent-crying-emoji-illustration-face-with-tears-of-joy-emoji-crying-iphone-crying-emoji-smiley-sticker-emoticon-thumbnail.png" alt="눈물" class="emotion-img">
+        </div>
+        <div class="emotion">
+          <img src="https://w7.pngwing.com/pngs/611/150/png-transparent-yellow-sad-emoji-illustration-face-with-tears-of-joy-emoji-sadness-iphone-emoticon-sad-computer-wallpaper-smiley-computer-icons-thumbnail.png" alt="힘듦" class="emotion-img">
+        </div>
+        <div class="emotion">
+          <img src="https://w7.pngwing.com/pngs/630/871/png-transparent-heart-eyes-emoji-emoji-heart-iphone-love-emoji-smiley-sticker-emoticon-thumbnail.png" alt="사랑" class="emotion-img">
+        </div>
+        <div class="emotion">
+          <img src="https://w7.pngwing.com/pngs/464/488/png-transparent-emoji-illustration-emoji-emoticon-icon-embarrassed-expression-smiley-sticker-villain-thumbnail.png" alt="놀람" class="emotion-img">
+        </div>
+        <div class="emotion">
+          <img src="https://w7.pngwing.com/pngs/883/607/png-transparent-happy-emoji-emoji-smiley-happiness-emoticon-smirk-laugh-face-emoji-domain-computer-icons-thumbnail.png" alt="즐거움" class="emotion-img">
+        </div>
+        <div class="emotion">
+          <img src="https://e7.pngegg.com/pngimages/156/700/png-clipart-emoji-smiley-emoticon-blank-expression-feeling-face-people-sadness-thumbnail.png" alt="무표정" class="emotion-img">
+        </div>
+        <div class="emotion">
+          <img src="https://w7.pngwing.com/pngs/666/250/png-transparent-angry-emoji-illustration-emoji-anger-emoticon-iphone-angry-emoji-orange-computer-wallpaper-smiley-thumbnail.png" alt="화남" class="emotion-img">
+        </div>
+      </div>
+      <label for="diary"></label>
+      <textarea id="diary" name="diary" rows="10" class="dairy_text"></textarea>
+      <button type="submit" class="button">오늘의 감정 저장</button>
+    </form>
+  </div>
+  <script src="Diary.js"></script>
+</body>
+</html>

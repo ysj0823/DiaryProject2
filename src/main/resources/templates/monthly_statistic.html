@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>감정록, 감정을 기록하다</title>
+    <style>
+        /* ��ü ��Ÿ�� */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+}
+
+.logout {
+    display: flex;
+    border: none;
+    position: relative;
+
+}
+
+.logout-button {
+    display: flex;
+    border: none;
+    position: absolute;
+    right: 10px;
+    background-color: white;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.home-button {
+    width: 30px;
+    height: 30px;
+    margin-top: 10px;
+    background-size: contain;
+    border: none;
+    background-color: transparent;
+    background-image: url('./image/home.png');
+}
+
+.date {
+    margin: 0 auto;
+}
+
+#username {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+
+
+
+/* ��� */
+.box{
+    /* width: fit-content; */
+    width:auto;
+    padding: 30px 130px 0 130px;
+    margin: 0 auto;
+}
+
+
+.bar-graph {
+    background-color:#FDEEDC;
+    padding: 60px 30px 0px 30px;
+    border-radius: 20px 20px 0px 0px ;
+    display: flex;
+    justify-content: space-between;
+    height: 200px;
+}
+
+.bar {
+    width: 30px;
+    position: relative;
+}
+
+
+.bar-percentage {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    /* border-radius: 50px 50px 0px 0px; */
+    background-color: #F1A661;
+    transition: height 0.5s;
+}
+
+.bar-percentage:before {
+    content: attr(data-percentage) '%';
+    position:absolute;
+    left: 33%;
+    top: -20px;
+    font-size: 12px;
+
+}
+
+.bar-image{
+    width:auto;
+    padding: 10px 30px 0 30px;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    background-size: contain;
+}
+
+.line {
+    height: 1px;
+    background-color: #183A1D;
+}
+
+
+
+
+/* �����м� */
+#analysis-section {
+    font-family: inherit;
+    background-color: #f2f2f2;
+    border: 3px solid #333;
+    /* border-radius: 50px; */
+    padding: 30px;
+    margin: 30px;
+    font-size: 1.5rem;
+}
+
+.analysis-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: inherit;
+
+}
+
+.most-emotion,
+.least-emotion {
+    flex-basis: calc(50% - 10px);
+    /* border: 1px solid #ccc; */
+    padding: 20px;
+    margin-right: 10px;
+    font-family: inherit;
+    border-radius: 30px 30px 30px 30px;
+    background-color: #fde8ce;
+
+}
+
+.most-emotion h3,
+.least-emotion h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: inherit;
+}
+
+.most-emotion p,
+.least-emotion p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    font-family: inherit;
+}
+
+
+
+
+/* ���� */
+#advice-section {
+    font-family: inherit;
+    background-color: #f2f2f2;
+    border: 3px solid #333;
+    /* border-radius: 50px; */
+    padding: 20px;
+    margin: 30px;
+    font-size: 1.5rem;
+
+}
+
+.advice-container {
+    padding: 20px;
+    font-family: inherit;
+    font-size: 1.5rem;
+}
+
+
+
+
+/*��Ʈ*/
+@font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    padding: 15%;
+    font-family: 'GangwonEdu_OTFBoldA';
+    font-size: 2rem;
+}
+    </style>
+    
+</head>
+
+<body>
+
+    <div class="logout"><button class="logout-button" onclick="logout();">로그아웃</button></div>
+    <div><button type="button" class="home-button" onclick="home();"></button></div>
+    <div id="username"></div>
+
+
+    <!--년월 셀렉트 박스-->
+    
+
+
+
+
+    <main>
+        <div class="box">
+            <div class="bar-graph">
+                <div class="bar" id="joy-bar">
+                    <div class="bar-percentage"></div>
+                </div>
+                <div class="bar" id="sadness-bar">
+                    <div class="bar-percentage">
+                    </div>
+                </div>
+                <div class="bar" id="anticipation-bar">
+                    <div class="bar-percentage">
+                        
+                    </div>
+                </div>
+                <div class="bar" id="surprise-bar">
+                    <div class="bar-percentage">
+                        
+                    </div>
+                </div>
+                <div class="bar" id="anger-bar">
+                    <div class="bar-percentage">
+                        
+                    </div>
+                </div>
+                <div class="bar" id="fear-bar">
+                    <div class="bar-percentage">
+                        
+                    </div>
+                </div>
+                <div class="bar" id="disgust-bar">
+                    <div class="bar-percentage">
+                        
+                    </div>
+                </div>
+                <div class="bar" id="shame-bar">
+                    <div class="bar-percentage">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class = "line"></div>
+
+
+            <div class="bar-image">
+                <img src="image/1.Very Happy Emoji.png" width="30px" height="30px">
+                <img src="image/2.Loudly Crying Emoji.png" width="30px" height="30px" >
+                <img src="image/3.Sad Emoji.png" width="30px" height="30px" >
+                <img src="image/4.Heart Eyes Emoji.png" width="30px" height="30px">
+                <img src="image/5.Fearful Emoji.png" width="30px" height="30px">
+                <img src="image/6.smile.png" width="30px" height="30px">
+                <img src="image/7.Neutral Emoji.png" width="30px" height="30px">
+                <img src="image/8.Angry Emoji.png" width="30px" height="30px">
+            </div>
+        </div>
+        
+
+        <!-- 감정분석 -->
+        <div id="analysis-section">
+            <h2> <span>5</span> <span>월 감정분석</span></h2>
+            <div class="analysis-container">
+                <div class="most-emotion">
+                    <h3>가장 많은 감정:</h3>
+                    
+                </div>
+                <div class="least-emotion">
+                    <h3>가장 적은 감정:</h3>
+                    
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 조언 -->
+        <div id="advice-section">
+            <h2>조언</h2>
+            <div class="advice-container">
+                <p>나는 짱이다 세 번 외치세요.</p>
+            </div>
+        </div>
+
+    </main>
+</body>
+<script>
+    // 사용자 이름 받아오기
+function getUserName() {
+  //   return $.ajax({
+  //     url: "/get-username",
+  //     type: "GET",
+  //     dataType: "json",
+  //   });
+  return "홍길동";
+}
+
+window.onload = function () {
+  var nameId = document.getElementById("username");
+  var username = getUserName();
+  nameId.innerHTML = username + "님의 월별 감정 통계";
+};
+
+const data = {
+  joy: 30,
+  sadness: 10,
+  anticipation: 20,
+  surprise: 15,
+  anger: 5,
+  fear: 8,
+  disgust: 7,
+  shame: 5,
+};
+
+const bars = document.querySelectorAll(".bar");
+
+bars.forEach((bar) => {
+  const id = bar.id.replace("-bar", "");
+  const percentage = data[id];
+  const barPercentage = bar.querySelector(".bar-percentage");
+  barPercentage.style.height = percentage + "%";
+  barPercentage.setAttribute("data-percentage", percentage);
+});
+
+</script>
+
+</html>
