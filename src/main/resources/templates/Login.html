@@ -99,9 +99,16 @@ body{
 </div>
 <script>
     const url="http://localhost:8080";
-    var loginButton = document.getElementById("login");
+    const loginButton = document.getElementById("login");
+    const signUpButton = document.getElementById("signUp");
 
-    /******로그인 함수 *******/
+    /****회원가입 버튼*****/
+     signUpButton.addEventListener("click", function() {
+      location.href = url+'/api/user/signup';
+    });
+
+
+    /******로그인 버튼 *******/
     loginButton.addEventListener("click", function(){
         var id = document.getElementById("id").value;
         var pw = document.getElementById("pw").value;

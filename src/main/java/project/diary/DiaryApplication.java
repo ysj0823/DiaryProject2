@@ -12,6 +12,7 @@ public class DiaryApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DiaryApplication.class, args);
 	}
+
 	@Controller
 	public static class HomeController {
 
@@ -21,6 +22,14 @@ public class DiaryApplication {
 			model.addAttribute("message", "Welcome to the Diary Application!");
 			return "Login.html";
 		}
-	}
 
+		@Controller
+		public static class SignupController {
+
+			@GetMapping("/api/user/signup")
+			public String signup() {
+				return "Signup.html";
+			}
+		}
+	}
 }
