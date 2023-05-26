@@ -13,7 +13,7 @@ public class DiaryApplication {
 		SpringApplication.run(DiaryApplication.class, args);
 	}
 	@Controller
-	public class HomeController {
+	public static class HomeController {
 
 		@GetMapping("/")
 		public String login(Model model) {
