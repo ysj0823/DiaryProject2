@@ -204,138 +204,270 @@ body {
 
 <body>
 
-    <div class="logout"><button class="logout-button" onclick="logout();">로그아웃</button></div>
-    <div><button type="button" class="home-button" onclick="home();"></button></div>
-    <div id="username"></div>
+<!-- 로그아웃 버튼 -->
+<div class="logout"><button class="logout-button" onclick="logout();">로그아웃</button></div>
+<!-- 홈 버튼-->
+<div><button class="home-button" onclick="home();"></button></div>
+<!-- "OOO 님의 월별 감정 통계" -->
+<div id="username"></div>
+<div class="line"></div>
 
 
-    <!--년월 셀렉트 박스-->
-    
+
+<!-- 월별 감정 통계 -->
+<main class="main">
+
+    <!--날짜 셀렉트 박스-->
+    <div class="month" >
+        <input type="month" value="2023-05" id="date" name="date">
+        <!-- <button onclick="selectDate()">click</button> -->
+    </div>
 
 
-
-
-    <main>
-        <div class="box">
-            <div class="bar-graph">
-                <div class="bar" id="joy-bar">
-                    <div class="bar-percentage"></div>
-                </div>
-                <div class="bar" id="sadness-bar">
-                    <div class="bar-percentage">
-                    </div>
-                </div>
-                <div class="bar" id="anticipation-bar">
-                    <div class="bar-percentage">
-                        
-                    </div>
-                </div>
-                <div class="bar" id="surprise-bar">
-                    <div class="bar-percentage">
-                        
-                    </div>
-                </div>
-                <div class="bar" id="anger-bar">
-                    <div class="bar-percentage">
-                        
-                    </div>
-                </div>
-                <div class="bar" id="fear-bar">
-                    <div class="bar-percentage">
-                        
-                    </div>
-                </div>
-                <div class="bar" id="disgust-bar">
-                    <div class="bar-percentage">
-                        
-                    </div>
-                </div>
-                <div class="bar" id="shame-bar">
-                    <div class="bar-percentage">
-                        
-                    </div>
-                </div>
+    <div class="box">
+        <div class="bar-graph">
+            <div class="bar" id="Very_Happy-bar">
+                <div class="bar-percentage"></div>
             </div>
-
-            <div class = "line"></div>
-
-
-            <div class="bar-image">
-                <img src="image/1.Very Happy Emoji.png" width="30px" height="30px">
-                <img src="image/2.Loudly Crying Emoji.png" width="30px" height="30px" >
-                <img src="image/3.Sad Emoji.png" width="30px" height="30px" >
-                <img src="image/4.Heart Eyes Emoji.png" width="30px" height="30px">
-                <img src="image/5.Fearful Emoji.png" width="30px" height="30px">
-                <img src="image/6.smile.png" width="30px" height="30px">
-                <img src="image/7.Neutral Emoji.png" width="30px" height="30px">
-                <img src="image/8.Angry Emoji.png" width="30px" height="30px">
+            <div class="bar" id="Loudly_Crying-bar">
+                <div class="bar-percentage"></div>
+            </div>
+            <div class="bar" id="Sad-bar">
+                <div class="bar-percentage"></div>
+            </div>
+            <div class="bar" id="Heart_Eyes-bar">
+                <div class="bar-percentage"></div>
+            </div>
+            <div class="bar" id="Fearful-bar">
+                <div class="bar-percentage"></div>
+            </div>
+            <div class="bar" id="smile-bar">
+                <div class="bar-percentage"></div>
+            </div>
+            <div class="bar" id="Neutral-bar">
+                <div class="bar-percentage"></div>
+            </div>
+            <div class="bar" id="Angry-bar">
+                <div class="bar-percentage"></div>
             </div>
         </div>
-        
+        <div class="line"></div>
 
-        <!-- 감정분석 -->
-        <div id="analysis-section">
-            <h2> <span>5</span> <span>월 감정분석</span></h2>
-            <div class="analysis-container">
-                <div class="most-emotion">
-                    <h3>가장 많은 감정:</h3>
-                    
-                </div>
-                <div class="least-emotion">
-                    <h3>가장 적은 감정:</h3>
-                    
-                </div>
+
+        <div class="bar-image">
+            <img src="./image/Very_Happy.png" width="30px" height="30px" background-size: contain;>
+            <img src="./image/Loudly_Crying.png" width="30px" height="30px" background-size: contain;>
+            <img src="./image/Sad.png" width="30px" height="30px" background-size: contain;>
+            <img src="./image/Heart_Eyes.png" width="30px" height="30px" background-size: contain;>
+            <img src="./image/Fearful.png" width="30px" height="30px" background-size: contain;>
+            <img src="./image/smile.png" width="30px" height="30px" background-size: contain;>
+            <img src="./image/Neutral.png" width="30px" height="30px" background-size: contain;>
+            <img src="./image/Angry.png" width="30px" height="30px" background-size: contain;>
+        </div>
+    </div>
+
+
+    <!-- 감정 분석 -->
+    <div id="analysis-section">
+        <!-- OO월 감정 분석-->
+        <h2 id="month_info"> 감정분석</h2>
+
+        <div class="analysis-container">
+            <!-- 가장 많은 감정 -->
+            <div class="most-emotion">
+                <h3>가장 많은 감정:</h3>
+                <img id="most-image"/>
+                <div id="most-percentage"></div>
+            </div>
+
+            <!-- 가장 적은 감정 -->
+            <div class="least-emotion">
+                <h3>가장 적은 감정:</h3>
+                <img id="least-image">
+                <div id="least-percentage"></div>
             </div>
         </div>
+    </div>
 
 
-        <!-- 조언 -->
-        <div id="advice-section">
-            <h2>조언</h2>
-            <div class="advice-container">
-                <p>나는 짱이다 세 번 외치세요.</p>
-            </div>
+    <!-- 조언 -->
+    <div id="advice-section">
+        <h2>조언</h2>
+        <div class="advice-container">
+            <div id="advice"></div>
         </div>
+    </div>
 
-    </main>
+</main>
 </body>
+
+
+
+
 <script>
-    // 사용자 이름 받아오기
+    // 로그아웃 로직
+    function logout() {}
+
+// 홈 이동
+    function home() {
+        var destination = "./index.html";
+        window.location.href = destination;
+    }
+
+// 사용자 이름 받아오기
+// db에서............
 function getUserName() {
-  //   return $.ajax({
-  //     url: "/get-username",
-  //     type: "GET",
-  //     dataType: "json",
-  //   });
   return "홍길동";
 }
 
+// OOO님의 월별 감정 통계
 window.onload = function () {
   var nameId = document.getElementById("username");
   var username = getUserName();
   nameId.innerHTML = username + "님의 월별 감정 통계";
 };
 
-const data = {
-  joy: 30,
-  sadness: 10,
-  anticipation: 20,
-  surprise: 15,
-  anger: 5,
-  fear: 8,
-  disgust: 7,
-  shame: 5,
+
+//////////////////////////////////////////////////////
+
+
+// 감정 데이터
+const emotion = {
+  Very_Happy: 30,
+  Loudly_Crying: 10,
+  Sad: 20,
+  Heart_Eyes: 15,
+  Fearful: 5,
+  smile: 8,
+  Neutral: 7,
+  Angry: 5,
 };
 
-const bars = document.querySelectorAll(".bar");
-
-bars.forEach((bar) => {
-  const id = bar.id.replace("-bar", "");
-  const percentage = data[id];
-  const barPercentage = bar.querySelector(".bar-percentage");
-  barPercentage.style.height = percentage + "%";
-  barPercentage.setAttribute("data-percentage", percentage);
+document.addEventListener("DOMContentLoaded", function () {
+  const date = document.getElementById("date");
+  date.addEventListener("change", handlerDateClick);
 });
+
+function handlerDateClick(event) {
+  var presentDate = document.getElementById("date").value;
+
+  const month_info = document.getElementById("month_info");
+  month_info.innerHTML = presentDate + " 감정분석";
+
+  // 날짜에 맞는 데이터 세팅
+  setEmotionValue(month_info);
+
+  // 전체 감정 개수
+  const totalEmotions = Object.values(emotion).reduce(
+    (acc, val) => acc + val,
+    0
+  );
+
+
+//   감정 퍼센트 담는 배열
+    const emotionPercentages = {};
+
+
+  // 8가지 감정 데이터에서 개수를 가져와 백분율로 바꿔서
+  // 위에 emotionPercentages에 담는 로직
+  for (const e in emotion) {
+    const count = emotion[e];
+    const percentage = (count / totalEmotions) * 100;
+    emotion[e] = Math.floor(percentage); // 소수점 버리기
+  }
+
+  EmotionGraph(emotion);
+  MostAndLeastEmotions(emotion);
+  Advice(emotion);
+}
+
+
+
+// 통계 그래프 그리는 함수
+function EmotionGraph(emotionPercentages) {
+  // 각 감정들의 퍼센트 수치 출력
+  const bars = document.querySelectorAll(".bar");
+
+  bars.forEach((bar) => {
+    const id = bar.id.replace("-bar", "");
+    const percentage = emotionPercentages[id];
+    const barPercentage = bar.querySelector(".bar-percentage");
+    barPercentage.style.height = percentage + "%";
+    barPercentage.setAttribute("data-percentage", percentage);
+  });
+}
+
+// 가장 많은/적은 감정
+function MostAndLeastEmotions(emotion) {
+
+  // 값 가져와서
+  const mostEmotion = document.getElementById("most-percentage");
+  const leastEmotion = document.getElementById("least-percentage");
+
+  const mostImage = document.getElementById("most-image");
+  const leastImage = document.getElementById("least-image");
+
+  // 데이터 오름차순 정렬
+  const sortedEmotions = Object.keys(emotion).sort(
+    (a, b) => emotion[b] - emotion[a]
+  );
+
+  // 정렬된 배열의 가장 첫 번째 값으로 적용
+  mostEmotion.innerHTML = emotion[sortedEmotions[0]] + "%";
+  mostImage.setAttribute("src", "./image/" + sortedEmotions[0] + ".png");
+
+  // 정렬된 배열의 가장 마지막 값으로 적용
+  leastEmotion.innerHTML =
+    emotion[sortedEmotions[sortedEmotions.length - 1]] + "%";
+  leastImage.setAttribute(
+    "src",
+    "./image/" + sortedEmotions[sortedEmotions.length - 1] + ".png"
+  );
+}
+
+
+
+// 조언
+function Advice(emotion) {
+  const adviceElement = document.getElementById("advice");
+
+  // 데이터 오름차순 정렬
+  const sortedEmotions = Object.keys(emotion).sort(
+    (a, b) => emotion[b] - emotion[a]
+  );
+  const mostEmotion = emotion[sortedEmotions[0]];
+
+  // const adviceData = {} // db에서 mostEmotion에 대한 조언 리스트를 받아오는 로직 짜서 넣기
+
+
+  // 가장 많이 나온 감정에 대한 조언 리스트에서 랜덤하게 뽑아내기
+  const randomIndex = Math.floor(Math.random() * adviceData.length);
+
+  // 랜덤하게 선택된 조언
+  const selectedAdvice = adviceData[randomIndex];
+
+  // html에 적용
+  adviceElement.textContent = selectedAdvice;
+}
+
+// 선택 날짜에 해당하는 8가지 감정 데이터 세팅
+function setEmotionValue(month_info) {
+  // 우선 디비에서 where = month_info 조건에 맞는
+  // 감정... 그거 목록 다 가져옴
+  // 이거는 함수를 또 따로 구현해주기.
+  // 함수 내용은 함수이름(날짜) 이렇게만 넘겨주고
+  // emotion 데이터를 아예 밖에 뺴둬서
+  // 함수 안에서 8가지 다 쿼리로 작성해서 친거 구한 즉시
+  // 각 감정에 맞는 것들에 값 바꿔놓는 거 ㅇㅇ
+}
+
+
+function getDiary(month_info){
+    // db에서 where diary.date = month_info AND diary.emotion = "슬픔???????"
+    // 이렇게 8가지 각각  select count(*) 로 가져와서 emotion에
+    // 각 감정에 대한 갯수 구하기
+}
+
 
 </script>
 
