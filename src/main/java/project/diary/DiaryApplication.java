@@ -22,36 +22,14 @@ public class DiaryApplication {
 			model.addAttribute("message", "Welcome to the Diary Application!");
 			return "Login.html";
 		}
-	}
-	@Controller
-	public static class SignupController {
 
-		@GetMapping("/api/user/signup")
-		public String signup() {
-			return "Signup.html";
+		@Controller
+		public static class SignupController {
+
+			@GetMapping("/api/user/signup")
+			public String signup() {
+				return "Signup.html";
+			}
 		}
 	}
-
-	@Controller
-	public static class CalendarController {
-
-		@GetMapping("/api/user/calendar")
-		public String calendar() {
-			return "Calendar.html";
-		}
-	}
-
-
-	@Controller
-	public static class MyPageController {
-
-		@GetMapping("/api/user/mypage/{userLoginId}/my")
-		public String myPage() {
-			return "MyPage.html";
-		}
-	}
-
-
-
-
 }
