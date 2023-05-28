@@ -35,7 +35,7 @@ public class DiaryApplication {
 	@Controller
 	public static class CalendarController {
 
-		@GetMapping("/api/user/calendar")
+		@GetMapping("/api/calendar")
 		public String calendar() {
 			return "Calendar.html";
 		}

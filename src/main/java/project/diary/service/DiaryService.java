@@ -44,7 +44,7 @@ public class DiaryService {
 
     // 삭제
     public void deleteDiary(int diaryId) {
-        diaryRepository.deleteById(Long.valueOf(diaryId));
+        diaryRepository.deleteById((long) Math.toIntExact(Long.valueOf(diaryId)));
     }
 
     // 이미 있는 데이터 조회
