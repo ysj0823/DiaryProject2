@@ -10,6 +10,8 @@ import project.diary.dto.diary.DiaryRequestDTO;
 import project.diary.dto.diary.DiaryResponseDTO;
 import project.diary.dto.diary.DiaryUpdateRequestDTO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j

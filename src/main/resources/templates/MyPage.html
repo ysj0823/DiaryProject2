@@ -4,28 +4,127 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="MyPage.css"/>
 	<title> 마이페이지 </title>
-	<script src="MyPage.js"></script>
+
+	<style>
+		/* 폰트 */
+@font-face {
+  font-family: 'GangwonEdu_OTFBoldA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 폰트 적용 */
+body {
+  font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+}
+
+/* 양 옆 여백 */
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+/* 상단바 (마이페이지) */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  height: 60px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  padding: 0 20px;
+}
+
+/* 상단바 글씨 */
+.header__title {
+  font-size: 20px;
+  margin: 0 auto;
+}
+
+/* 뒤로가기 버튼 */
+.header_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* 회원 정보 출력하는 박스 */
+.info-box {
+  border: 1px solid rgb(255, 214, 179);
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 410px;
+  padding: 20px 40px;
+  border-radius: 5px;
+}
+
+/* 메인 버튼 4개 */
+.main {
+  padding: 80px 0;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 버튼 */
+.button {
+  font-family: 'GangwonEdu_OTFBoldA', sans-serif;
+  background-color: rgb(255, 214, 179);
+  border: 1px solid #ccc;
+  width: 490px;
+  padding: 20px 40px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+	</style>
 </head>
 <body>
-	<div class="container">
-		<header class="header">
-			<button class="header_button">
-				<img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-left-01-512.png" alt="뒤로 가기" width="20" height="20">
-			</button>
-			<h1 class="header__title">마이페이지</h1>
-		</header>
-		<main class="main">
-			<div class="info-box">
-				<p> 닉네임 : 홍길동</p>
-        <p> 아이디 : aaa</p>
-      </div>
-			<button class="button">닉네임 변경</button>
-			<button class="button">비밀번호 변경</button>
-			<button class="button">회원탈퇴</button>
-			<button class="button">로그아웃</button>
-		</main>
-	</div>
+<div class="container">
+	<header class="header">
+		<button class="header_button">
+			<img src="https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-left-01-512.png" alt="뒤로 가기" width="20" height="20">
+		</button>
+		<h1 class="header__title">마이페이지</h1>
+	</header>
+	<main class="main">
+		<div class="info-box">
+			<p id="nickname">닉네임: </p>
+			<p id="userId">아이디: </p>
+		</div>
+		<button class="button">닉네임 변경</button>
+		<button class="button">비밀번호 변경</button>
+		<button class="button">회원탈퇴</button>
+		<button class="button">로그아웃</button>
+	</main>
+</div>
+<script>
+const url="http://localhost:8080;
+var userLoginId=data.userLoginId;
+    const token = localStorage.getItem('token');
+
+    fetch(url + '/api/user/mypage/{userLoginId}', {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 마이페이지 정보를 가져와서 화면에 출력
+        const nickname = document.getElementById('nickname');
+        const userId = document.getElementById('userId');
+        nickname.innerText = '닉네임: ' + data.nickname;
+        userId.innerText = '아이디: ' + data.userId;
+
+
+    })
+    .catch(error => console.error('Error:', error));
+		</script>
 </body>
 </html>

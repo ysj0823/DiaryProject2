@@ -176,7 +176,7 @@
         <li class="nav-item" onclick="avgmove(event)">logout</li>
     </ul>
 </nav>
-<div class="nickname">'홍길동'님의 감정록</div>
+<div class="nickname">홍길동님의 감정록</div>
 <div id="calendarForm"></div>
 <div class="box-container">
     <div class="today-box">
@@ -189,6 +189,44 @@
 </div>
 
 <script>
+const url=http://localhost:8080;
+
+
+//사용자 닉네임 가져오기
+var nickname = "사용자 닉네임";
+var nicknameElement = document.querySelector('.nickname');
+
+
+// 캘린더 데이터 가져오기
+function fetchCalendarData() {
+  // 토큰 가져오기
+  const token = localStorage.getItem('token');
+
+  // 토큰이 없으면 로그인 페이지로 이동
+  if (!token) {
+    alert('로그인이 필요합니다.');
+    location.href = url;
+    return;
+  }
+
+  // 캘린더 API 호출
+  fetch(url+'/api/calendar', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      // 캘린더 데이터를 사용하여 화면 업데이트
+      // ...
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('캘린더 데이터를 가져오는데 실패했습니다.');
+    });
+}
 
 
     // 달력 만들기
@@ -392,28 +430,28 @@
           alert("일기 삭제 버튼을 클릭했습니다.");
         });
       });
+
       //페이지이동
 
       //월별 감정 통계로 이동
       function avgmove(e){
-        var link = 'http://127.0.0.1:5500/front/statistics/monthly_statistic.html';
+        var link = 'http://127.0.0.1:8080/front/statistics/monthly_statistic.html';
         location.href=link;
       }
       //홈 화면으로 이동
       function homemove(e){
-        var link = 'http://127.0.0.1:5500/front/calender/calender.html';
+        var link = 'http://127.0.0.1:8080/front/calender/calender.html';
         location.href=link;
       }
       //로그아웃
       function logout(e){
-        var link = 'http://127.0.0.1:5500/front/Sign-inup/Login.html';
+        var link = 'http://127.0.0.1:8080/front/Sign-inup/Login.html';
         location.href=link;
       }
       //마이페이지
       function mpmove(e){
-        var link = 'http://127.0.0.1:5501/front/mypage/MyPage/MyPage.html';
+        var link = 'http://127.0.0.1:8080/front/mypage/MyPage/MyPage.html';
         location.href=link;}
 </script>
 </body>
 </html>
-
