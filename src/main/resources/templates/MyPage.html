@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title> 마이페이지 </title>
-
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>마이페이지</title>
 	<style>
 		/* 폰트 */
 @font-face {
@@ -96,7 +95,7 @@ body {
 	<main class="main">
 		<div class="info-box">
 			<p id="nickname">닉네임: </p>
-			<p id="userId">아이디: </p>
+			<p id="username">아이디: </p>
 		</div>
 		<button class="button">닉네임 변경</button>
 		<button class="button">비밀번호 변경</button>
@@ -104,27 +103,48 @@ body {
 		<button class="button">로그아웃</button>
 	</main>
 </div>
+
 <script>
-const url="http://localhost:8080;
-var userLoginId=data.userLoginId;
-    const token = localStorage.getItem('token');
+    // 페이지 로드 시 실행되는 함수
+    window.onload = function() {
+      var token = localStorage.getItem('token');
+      const url = "http://localhost:8080";
 
-    fetch(url + '/api/user/mypage/{userLoginId}', {
+      // 토큰 검증 API 호출
+      fetch(ur
+      l + '/api/token', {
         headers: {
-            'Authorization': 'Bearer ' + token
+          'Authorization': token
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-        // 마이페이지 정보를 가져와서 화면에 출력
-        const nickname = document.getElementById('nickname');
-        const userId = document.getElementById('userId');
-        nickname.innerText = '닉네임: ' + data.nickname;
-        userId.innerText = '아이디: ' + data.userId;
-
-
-    })
-    .catch(error => console.error('Error:', error));
-		</script>
+      })
+        .then(r
+        esponse => {
+          if (response.status === 200) {
+            // 토큰이 유효한 경우 사용자 정보 가져오기
+            fetch(url + '/api/mypage'+data.userLoginId, {
+              headers: {
+                'Authorization': token
+              }
+            })
+              .then(response => response.json())
+              .then(data => {
+                // 사용자 정보 화면에 표시
+                document.getElementById('nickname').textContent = '닉네임: ' + data.userNickname;
+                document.getElementById('username').textContent = '아이디: ' + data.userLoginId;
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('사용자 정보를 가져오는데 실패했습니다.');
+              });
+          } else {
+            throw new Error(response.statusText);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('토큰 검증에 실패했습니다.');
+        });
+    };
+  </script>
 </body>
 </html>

@@ -28,16 +28,7 @@ input::placeholder{
 }
 
 /*로그인, 회원가입 버튼*/
-.kakao-button{
-    width: 100%;
-    height: 49px;
-    cursor: pointer;
-    border-radius: 10px 10px 10px 10px;
-    border-color: rgb(255, 250, 179);
-    background-image: url("https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_wide.png");
-    background-size: 100%;
-    background-position: center;
-}
+
 
 .main-button{
     width: 100%;
@@ -76,25 +67,20 @@ body{
     font-style: normal;
 }
     </style>
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <h1>감정록</h1>
 </head>
 <body>
 <div class="box">
-    <input placeholder="아이디를 입력하세요" type="email" id="id"><br>
+    <input placeholder="아이디를 입력하세요" type="text" id="id"><br>
     <input placeholder="패스워드를 입력하세요" type="password" id="pw"><br>
     <div id="Button-all">
-        <div id="Button1">
-            <button class="kakao-button" onclick="kakaoLogin()">
-                <a href="javascript:void(0)"></a>
-            </button>
-        </div>
         <div id="Button2">
             <button class="main-button" id="login">로그인</button>
         </div>
         <div id="Button3">
             <button class="main-button" id="signUp">회원가입</button>
         </div>
+
     </div>
 </div>
 <script>
@@ -107,85 +93,52 @@ body{
       location.href = url+'/api/user/signup';
     });
 
+//*********로그인 버튼
 
-    /******로그인 버튼 *******/
-    loginButton.addEventListener("click", function(){
-        var id = document.getElementById("id").value;
-        var pw = document.getElementById("pw").value;
+  loginButton.addEventListener("click", function() {
+  var id = document.getElementById("id").value;
+  var pw = document.getElementById("pw").value;
 
-        if (id == "" || pw == "") {
-            alert("아이디 및 비밀번호를 입력해주세요.")
-        } else {
-            const userData = {
-                userLoginId: id,
-                userPassword: pw
-            };
+  if (id == "" || pw == "") {
+    alert("아이디 및 비밀번호를 입력해주세요.");
+  } else {
+    const userData = {
+      userLoginId: id,
+      userPassword: pw
+    };
 
-            fetch(url+'/api/user/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(userData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // 로그인 성공 시의 처리
-                    if (data.jwtToken) {
-                        // 토큰을 서버에서 전달받아 로컬 스토리지에 저장
-                        localStorage.setItem('token', data.jwtToken);
-                        // 메인 페이지로 이동
-                        location.href = 'Calendar.html';
-                    } else {
-                        alert('로그인에 실패했습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('로그인에 실패했습니다.');
-                });
-        }
+    fetch(url + '/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('로그인에 실패했습니다.');
+      }
+    })
+    .then(data => {
+      if (data.jwtToken) {
+        localStorage.setItem('token', data.jwtToken);
+        location.href = url + '/api/calendar'; // 페이지 이동
+      } else {
+        throw new Error('로그인에 실패했습니다.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert(error.message);
     });
+  }
+});
 
-    //kakao.js
-    Kakao.init('15990b82c7c3f950139eec218c946009');
-    console.log(Kakao.isInitialized());
 
-    //카카오로그인
-    function kakaoLogin() {
-        Kakao.Auth.login({
-            success: function (response) {
-                Kakao.API.request({
-                    url: '/v2/user/me',
-                    success: function (response) {
-                        console.log(response)
-                    },
-                    fail: function (error) {
-                        console.log(error)
-                    },
-                })
-            },
-            fail: function (error) {
-                console.log(error)
-            },
-        })
-    }
 
-    //카카오로그아웃
-    function kakaoLogout() {
-        if (Kakao.Auth.getAccessToken()) {
-            Kakao.API.request({
-                url: '/v1/user/unlink',
-                success: function (response) {
-                    console.log(response)
-                },
-                fail: function (error) {
-                    console.log(error)
-                },
-            })
-            Kakao.Auth.setAccessToken(undefined)
-        }
-    }
+
 </script>
 </body>
 </html>
