@@ -7,6 +7,7 @@
     <title>달력 만들기</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
+
         * {
             margin: 0;
             padding: 0
@@ -172,11 +173,11 @@
     <ul class = "nav-container">
         <li class="nav-item" onclick="homemove(event)">home</li>
         <li class="nav-item" onclick="logout(event)">월간통계</li>
-        <li class="nav-item" onclick="mpmove(event)">mypage</li>
+        <li class="nav-item" id="mypage">mypage</li>
         <li class="nav-item" onclick="avgmove(event)">logout</li>
     </ul>
 </nav>
-<div class="nickname">'홍길동'님의 감정록</div>
+<div class="nickname">님의 감정록</div>
 <div id="calendarForm"></div>
 <div class="box-container">
     <div class="today-box">
@@ -189,6 +190,41 @@
 </div>
 
 <script>
+
+
+<!--  var nowDate = new Date();-->
+<!--  var year_month = nowDate.getFullYear() + "-" + (nowDate.getMonth() + 1);-->
+<!--  const url = "http://localhost:8080";-->
+<!--  var token = localStorage.getItem("token");-->
+<!--  console.log(token);-->
+<!--  console.log(year_month);-->
+
+<!--  fetch(url + "/api/calendar", {-->
+<!--    headers: {-->
+<!--      "Authorization": token,-->
+<!--    },-->
+<!--    credentials: "include",-->
+<!--  })-->
+<!-- .then(response => {-->
+<!--  if (response.ok) {-->
+<!--    return response.text();-->
+<!--  } else {-->
+<!--    throw new Error('로그인에 실패했습니다.');-->
+<!--  }-->
+<!--})-->
+<!--.then(data => {-->
+<!--  if (data === 'Calendar') {-->
+<!--    localStorage.setItem('token', data.jwtToken);-->
+<!--    window.location.href = "/api/calendar"; // 캘린더 페이지로 이동-->
+<!--  } else {-->
+<!--    throw new Error('로그인에 실패했습니다.');-->
+<!--  }-->
+<!--})-->
+<!--.catch(error => {-->
+<!--  console.error('Error:', error);-->
+<!--  alert(error.message);-->
+<!--});-->
+
 
 
     // 달력 만들기
@@ -401,18 +437,21 @@
       }
       //홈 화면으로 이동
       function homemove(e){
-        var link = 'http://127.0.0.1:5500/front/calender/calender.html';
-        location.href=link;
+        location.href=url+'/api/calendar';
       }
       //로그아웃
       function logout(e){
         var link = 'http://127.0.0.1:5500/front/Sign-inup/Login.html';
         location.href=link;
       }
-      //마이페이지
-      function mpmove(e){
-        var link = 'http://127.0.0.1:5501/front/mypage/MyPage/MyPage.html';
-        location.href=link;}
+
+//마이페이지
+const mypageButton=document.getElementById("mypage");
+mypageButton.addEventListener("click",function(){
+    var userLoginId=data.userLoginId;
+  location.href = url + '/api/user/mypage/'+userLoginId;
+});
+
 </script>
 </body>
 </html>

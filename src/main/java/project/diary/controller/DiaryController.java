@@ -46,11 +46,11 @@ public class DiaryController {
                 return ResponseEntity.ok().build();
             } else {
                 // 토큰이 유효하지 않을 경우
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token.");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("유효하지 않은 토큰입니다.");
             }
         } catch (Exception e) {
             // 예외가 발생한 경우
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류가 발생했습니다.");
         }
     }
 
@@ -110,7 +110,7 @@ public class DiaryController {
 
 
     // 캘린더 조회 (한 달 치 일기)
-    @GetMapping("/home/calendar/{year_month}")
+    @GetMapping("/calendar/{year_month}")
     public ResponseEntity<List<DiaryResponseDTO>> getCalendar(@PathVariable String year_month) throws Exception{
         List<DiaryResponseDTO> diaryResponseDTOList = diaryService.findListByDate(year_month);
         return ResponseEntity.ok(diaryResponseDTOList);

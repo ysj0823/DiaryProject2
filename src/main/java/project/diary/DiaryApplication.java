@@ -34,20 +34,9 @@ public class DiaryApplication {
 
 	@Controller
 	public static class CalendarController {
-
 		@GetMapping("/api/calendar")
 		public String calendar() {
-			return "Calendar.html";
-		}
-	}
-
-
-	@Controller
-	public static class MyPageController {
-
-		@GetMapping("/api/user/mypage/{userLoginId}/my")
-		public String myPage() {
-			return "MyPage.html";
+			return "Calendar";
 		}
 	}
 

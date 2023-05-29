@@ -1,5 +1,6 @@
 package project.diary.controller;
 
+import org.springframework.http.HttpHeaders;
 import project.diary.domain.user.User;
 import project.diary.domain.user.UserRepository;
 
@@ -133,7 +134,13 @@ public class UserController {
     @GetMapping("/mypage/{userLoginId}")
     public ResponseEntity<UserResponseDto> myPage(@PathVariable String userLoginId) throws Exception {
         UserResponseDto user = userService.myPage(userLoginId);
-        return ResponseEntity.ok(user);
+
+        // 사용자 정보를 가져오고 MyPage.html로 이동하는 코드
+        String redirectUrl = "redirect:/MyPage.html";
+        return ResponseEntity.status(HttpStatus.FOUND)
+                .header(HttpHeaders.LOCATION, redirectUrl)
+                .body(user);
     }
+
 
 }

@@ -74,9 +74,6 @@ body{
     <input placeholder="아이디를 입력하세요" type="text" id="id"><br>
     <input placeholder="패스워드를 입력하세요" type="password" id="pw"><br>
     <div id="Button-all">
-        <div id="Button1">
-            <button class="main-button" id="myPage">확인용 마이페이지</button>
-        </div>
         <div id="Button2">
             <button class="main-button" id="login">로그인</button>
         </div>
@@ -97,7 +94,8 @@ body{
     });
 
 //*********로그인 버튼
-   loginButton.addEventListener("click", function() {
+
+  loginButton.addEventListener("click", function() {
   var id = document.getElementById("id").value;
   var pw = document.getElementById("pw").value;
 
@@ -116,46 +114,29 @@ body{
       },
       body: JSON.stringify(userData)
     })
-      .then(response => response.json())
-      .then(data => {
-        // 로그인 성공 시의 처리
-        if (data.jwtToken) {
-          // 토큰을 서버에서 전달받아 로컬 스토리지에 저장
-          localStorage.setItem('token', data.jwtToken);
-          var userLoginId = data.userLoginId;
-          var token = localStorage.getItem('token');
-          // 토큰 검증 API 호출
-          fetch(url + '/api/token', {
-            headers: {
-              'Authorization': token //헤더에 토큰 넣어서~
-            }
-          })
-            .then(response => {
-              if (response.status === 200) { //검증성공
-                moveToCalendar(); //캘린더 화면 이동 함수
-              } else {
-                throw new Error(response.statusText);
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              alert('토큰 검증에 실패했습니다.');
-            });
-        } else {
-          alert('정보를 다시 입력해주세요.'); //사용자 정보 잘못입력했을 경우
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('로그인에 실패했습니다.');
-      });
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('로그인에 실패했습니다.');
+      }
+    })
+    .then(data => {
+      if (data.jwtToken) {
+        localStorage.setItem('token', data.jwtToken);
+        location.href = url + '/api/calendar'; // 페이지 이동
+      } else {
+        throw new Error('로그인에 실패했습니다.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert(error.message);
+    });
   }
 });
 
-// 캘린더페이지 이동 처리
-function moveToCalendar() {
-  location.href = url + '/api/calendar';
-}
+
 
 
 </script>
